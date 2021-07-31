@@ -3,7 +3,8 @@ import Stock from '../components/Stock'
 
 class PortfolioContainer extends Component {
 
-  handleClick = () => {
+  handleClick = (event) => {
+    this.props.handleClick(event)
   }
   render() {
     return (
@@ -13,7 +14,7 @@ class PortfolioContainer extends Component {
             this.props.portfolio.map(stock=>{
               return (
                 <div key={stock.id} >
-                  < Stock stock={stock} onClick={this.handleClick} />
+                  < Stock stock={stock} handleClick={this.handleClick} />
                 </div>
               )
             })
