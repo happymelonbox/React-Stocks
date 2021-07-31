@@ -8,7 +8,8 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      stocks: []
+      stocks: [],
+      portfolio: []
     }
   }
 
@@ -18,13 +19,21 @@ class App extends Component {
     .then(data=>{
       return this.setState({
       stocks: data
-    },()=>{console.log(this.state.stocks)})})
+    })})
+  }
+
+  handleClickBuy = (event) => {
+    console.log(event.target.innerHTML)
+    const clickedStock = this.state.stocks.find(element => element.name === event.target.innerHTML)
+    this.setState({
+      portfolio: [...this.state.portfolio, clickedStock]
+    })
   }
   render() {
     return (
       <div>
         <Header/>
-        <MainContainer/>
+        <MainContainer stocks={this.state.stocks} portfolio={this.state.portfolio} handleClick={this.handleClickBuy} />
       </div>
     );
   }
