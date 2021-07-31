@@ -23,11 +23,10 @@ class App extends Component {
   }
 
   handleClickBuy = (event) => {
-    console.log(event.target.innerHTML)
-    const clickedStock = this.state.stocks.find(element => element.name === event.target.innerHTML)
-    this.setState({
-      portfolio: [...this.state.portfolio, clickedStock]
-    })
+    const clickedStock = this.state.stocks.map(stock => stock.name === event.target.innerHTML ? this.setState({
+      portfolio: [...this.state.portfolio, stock]
+    },()=>{console.log(this.state.portfolio)}) : null )
+    return clickedStock
   }
   render() {
     return (
