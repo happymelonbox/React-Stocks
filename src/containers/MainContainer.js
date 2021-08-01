@@ -8,12 +8,12 @@ class MainContainer extends Component {
   render() {
     return (
       <div>
-        <SearchBar/>
+        <SearchBar handleFilter={this.props.handleFilter} handleSort={this.props.handleSort}/>
 
           <div className="row">
             <div className="col-8">
 
-              <StockContainer stocks={this.props.stocks} handleClick={this.props.handleClickBuy} />
+              <StockContainer stocks={this.props.stocks} handleClick={this.props.handleClickFilter}  />
 
             </div>
             <div className="col-4">

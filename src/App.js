@@ -8,8 +8,11 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
+      dataArray: [],
       stocks: [],
-      portfolio: []
+      portfolio: [],
+      filter: "All",
+      sort: 'name'
     }
   }
 
@@ -17,9 +20,10 @@ class App extends Component {
     fetch(URL)
     .then(resp=>resp.json())
     .then(data=>{
-      return this.setState({
-      stocks: data
-    })})
+      this.setState({
+        stocks: data,
+        dataArray: data
+      })})
   }
 
   handleClickBuy = (event) => {
@@ -39,11 +43,28 @@ class App extends Component {
     })
   }
 
+  handleFilter = (value) => {
+    this.setState({
+      filter: value
+    },()=>{console.log(this.state.filter)})
+  }
+
+  handleSort = () => {
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.filter !== this.state.filter){
+    const filteredStocks = this.state.dataArray.filter(stock => {return stock.type === this.state.filter})
+      return this.setState({
+      stocks: this.state.filter !== 'All' ? filteredStocks : this.state.dataArray
+    })}
+  }
+
   render() {
     return (
       <div>
         <Header/>
-        <MainContainer stocks={this.state.stocks} portfolio={this.state.portfolio} handleClickBuy={this.handleClickBuy} handleClickSell={this.handleClickSell} />
+        <MainContainer stocks={this.state.stocks} portfolio={this.state.portfolio} handleClickBuy={this.handleClickBuy} handleClickSell={this.handleClickSell} handleFilter={this.handleFilter} handleSort={this.handleSort} />
       </div>
     );
   }
