@@ -27,7 +27,8 @@ class App extends Component {
   }
 
   handleClickBuy = (event) => {
-    const clickedStock = this.state.stocks.map(stock => stock.name === event.target.innerHTML ? this.setState({
+    const clickedStock = this.state.stocks.map(stock =>
+      stock.name === event.target.innerHTML ? this.setState({
       portfolio: [...this.state.portfolio, stock]
     }) : null )
     return clickedStock
@@ -49,10 +50,26 @@ class App extends Component {
     },()=>{console.log(this.state.filter)})
   }
 
-  handleSort = () => {
+  handleSort = (value) => {
+    this.setState({
+      sort: value
+    })
   }
 
   componentDidUpdate(prevProps, prevState){
+    if (prevState.sort !== this.state.sort){
+      if(this.state.sort === 'Alphabetically'){
+        const sortedAlphabetical = this.state.dataArray.sort((a,b)=>a.name>b.name&&1||-1)
+        this.setState({
+          stocks: sortedAlphabetical
+        })
+      } else if (this.state.sort === 'Price'){
+        const sortedPrice = this.state.dataArray.sort((a,b)=>a.price>b.price&&1||-1)
+        this.setState({
+          stocks: sortedPrice
+        })
+      }
+    }
     if (prevState.filter !== this.state.filter){
     const filteredStocks = this.state.dataArray.filter(stock => {return stock.type === this.state.filter})
       return this.setState({

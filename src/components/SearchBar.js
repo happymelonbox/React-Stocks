@@ -2,7 +2,8 @@ import React from 'react';
 
 const SearchBar = ({handleSort, handleFilter}) => {
   const selectSort = (event) => {
-    handleSort(event)
+    const value = event.target.value
+    handleSort(value)
   }
   const selectFilter = (event) => {
     const value = event.target.value
@@ -13,11 +14,11 @@ const SearchBar = ({handleSort, handleFilter}) => {
 
       <strong>Sort by:</strong>
       <label>
-        <input type="radio" value="Alphabetically" checked={null} onChange={selectSort}/>
+        <input type="radio" value="Alphabetically" name='sortBy' checked={null} onChange={selectSort}/>
         Alphabetically
       </label>
       <label>
-        <input type="radio" value="Price" checked={null} onChange={selectSort}/>
+        <input type="radio" value="Price" checked={null} onChange={selectSort} name='sortBy'/>
         Price
       </label>
       <br/>
